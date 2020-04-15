@@ -7,7 +7,7 @@ For further information please refer the official [documentation](https://docs.y
 
 
 
-# Installation
+# YTB Node Installation
 
 ```
 sudo apt-get update 
