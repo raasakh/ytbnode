@@ -56,15 +56,21 @@ miner {
 ```
 
 sudo systemctl enable ytb.service
+
 sudo systemctl restart ytb.service
+
 sudo systemctl start ytb.service
+
 sudo systemctl stop ytb.service
-or
-sudo service ytb restart
+
+or sudo service ytb restart
+
 sudo service ytb start
+
 sudo service ytb stop
 
-**juornal**(exit ctrl+o)
+**juornal** (exit ctrl+o)
+
 sudo journalctl -u ytb.service -f
 
 
