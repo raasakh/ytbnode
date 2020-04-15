@@ -1,8 +1,8 @@
-# YTB [![Build Status](https://travis-ci.org/mir-one/node.svg?branch=master)](https://travis-ci.org/mir-one/node) [![](https://images.microbadger.com/badges/version/mir-one/mir-testnet.svg)]
+# YTB [![Build Status](https://travis-ci.org/raasakh/ytbnode.svg?branch=master)](https://travis-ci.org/raasakh/ytbnode) [![](https://images.microbadger.com/badges/version/raasakh/ytb-testnet.svg)]
 
-In the master branch there is a code with functions that is under development. The latest release for each network can be found in the [Releases section](https://github.com/mir-one/node/releases), you can switch to the corresponding tag and build the application.
+In the master branch there is a code with functions that is under development. The latest release for each network can be found in the [Releases section](https://github.com/raasakh/ytbnode/releases), you can switch to the corresponding tag and build the application.
 
-For further information please refer the official [documentation](https://docs.mir.one).
+For further information please refer the official [documentation](https://docs.ytb.one).
 
 
 
@@ -10,8 +10,8 @@ For further information please refer the official [documentation](https://docs.m
 # Installation
 
 ```
-sudo apt-get update # Fetches the list of available updates
-sudo apt-get upgrade # Strictly upgrades the current packages
+sudo apt-get update 
+sudo apt-get upgrade
 
 sudo apt install apt-transport-https
 sudo apt install software-properties-common
@@ -20,10 +20,10 @@ sudo apt-get update
 sudo apt-get -y install oracle-java8-installer
 
 java -version
-#sudo apt install default-jre
-wget https://github.com/mir-one/node/releases/download/v1.0.2/mir-node_1.0.2.deb
-sudo dpkg -i mir-node_1.0.2.deb
-sudo nano /usr/share/mir/conf/mir.conf
+sudo apt install default-jre
+wget https://github.com/raasakh/ytbnode/releases/download/v1.0.0/ytb-node_1.0.0.deb
+sudo dpkg -i ytb-node_1.0.0.deb
+sudo nano /usr/share/ytb/conf/ytb.conf
 ```
 
 ```
@@ -55,13 +55,18 @@ miner {
  }
 ```
 
-sudo systemctl enable mir.service
-sudo systemctl start mir.service
+sudo systemctl enable ytb.service
+sudo systemctl restart ytb.service
+sudo systemctl start ytb.service
+sudo systemctl stop ytb.service
 or
-sudo service mir start
+sudo service ytb restart
+sudo service ytb start
+sudo service ytb stop
 
-**juornal**
-sudo journalctl -u mir.service -f
+**juornal**(exit ctrl+o)
+sudo journalctl -u ytb.service -f
+
 
 
 ## Compiling Packages from source
@@ -87,11 +92,11 @@ You can install sbt on Mac OS X using Homebrew.
 sbt "test:runMain tools.GenesisBlockGenerator genesis.conf"
 ```
 
-Added genesis data to mirnet.conf
+Added genesis data to ytbnet.conf
 
 ### Running
 
-sbt "run mirnet.conf"
+sbt "run ytbnet.conf"
 
 
 ### Create Package
@@ -170,26 +175,6 @@ javaOptions in IntegrationTest += "-agentlib:jdwp=transport=dt_socket,server=y,s
 Debugging a node inside a container is a little more complicated: you will need to modify the `MIR_OPTS` environment
 variable before starting a container.
 
-### Running Tests from IDE
-
-You can run integration test suites from your preferred IDE. The only requirement is to have Docker image pre-built and
-have `docker.imageId` system property defined for the run configuration. The easiest way to build an image is to issue
-`sbt it/docker` command. You'll find the image ID in the SBT output:
-
-```
-...
-[info] Step 5/5 : ENTRYPOINT /opt/TN/start-TN.sh
-[info]  ---> Using cache
-[info]  ---> e243fa08d496
-[info] Successfully built e243fa08d496
-[info] Tagging image e243fa08d496 with name: com.wavesplatform/root
-[success] Total time: 4 s, completed Mar 22, 2017 12:36:34 PM
-```
-
-In this example, `e243fa08d496` is the image ID you need. Make sure to re-build the image whenever the node code (not
-the tests) is changed. If you run the tests from SBT, there's no need to manually rebuild the image, SBT will handle
-this automatically.
-
 
 
 
@@ -207,7 +192,7 @@ this automatically.
     -Dkamon.modules.kamon-statsd.auto-start=yes \
     -Dkamon.modules.kamon-system-metrics.auto-start=yes \
     -Dkamon.statsd.hostname=localhost \
-    -Dkamon.statsd.port=9999" sbt TN-testnet.conf
+    -Dkamon.statsd.port=6565" sbt ytb-testnet.conf
     ```
 
     Here:
