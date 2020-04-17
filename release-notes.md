@@ -6,7 +6,7 @@
 
 **0.3.2**
 
-* By default walletDir and dataDir located in $HOME/mir
+* By default walletDir and dataDir located in $HOME/ytb
 
 **0.3.1**
 
@@ -22,31 +22,31 @@
 
 * peers.dat format changed. Delete old version.
 * Different HTTP status codes in replies in HTTP API were implemented
-* Mir' Scorex v1.3.2
+* Ytb' Scorex v1.3.2
 
 **0.2.0**
 
 * Peers blacklist ttl configuration via "p2p"/"blacklistResidenceTimeMilliseconds"
-* Upgrade to Mir' Scorex v1.3.1
+* Upgrade to Ytb' Scorex v1.3.1
 
 **0.2.0-RC7**
 
-* New API /mir/payment returns senderPublicKey
-* New API /mir/create-signed-payment
-* /mir/external-payment deprecated. 
-  Use new /mir/broadcast-signed-payment.
-* New API /mir/payment/signature
+* New API /ytb/payment returns senderPublicKey
+* New API /ytb/create-signed-payment
+* /ytb/external-payment deprecated. 
+  Use new /ytb/broadcast-signed-payment.
+* New API /ytb/payment/signature
 * minimumTxFee verification for API
 
 **0.2.0-RC5**
 
-* /mir/external-payment returns error for incorrect recipient
+* /ytb/external-payment returns error for incorrect recipient
 
 **0.2.0-RC4**
 
 * Fixed issue with incorrect Handshake
 * Balance with confirmations is the minimum balance
-* /mir/external-payment returns error if account balance invalid
+* /ytb/external-payment returns error if account balance invalid
 * New API method /consensus/generatingbalance/{address}
 
 **0.2.0-RC3**
@@ -64,4 +64,4 @@
 
 **0.1.2**
 
-* Upgrade to Scorex 1.2.4. Clean /scorex/mir/data/ before run.
+* Upgrade to Scorex 1.2.4. Clean /scorex/ytb/data/ before run.
