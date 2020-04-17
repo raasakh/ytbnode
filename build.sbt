@@ -17,7 +17,7 @@ val versionSource = Def.task {
   // In case of not updating the version nodes build from headless sources will fail to connect to newer versions
   val FallbackVersion = (1, 0, 1)
 
-  val versionFile      = (sourceManaged in Compile).value / "one" / "mir" / "Version.scala"
+  val versionFile      = (sourceManaged in Compile).value / "one" / "ytb" / "Version.scala"
   val versionExtractor = """(\d+)\.(\d+)\.(\d+).*""".r
   val (major, minor, patch) = version.value match {
     case versionExtractor(ma, mi, pa) => (ma.toInt, mi.toInt, pa.toInt)
@@ -25,7 +25,7 @@ val versionSource = Def.task {
   }
   IO.write(
     versionFile,
-    s"""package one.mir
+    s"""package one.ytb
        |
        |object Version {
        |  val VersionString = "${version.value}"
@@ -37,7 +37,7 @@ val versionSource = Def.task {
 }
 val network = SettingKey[Network]("network")
 network := { Network(sys.props.get("network")) }
-name := "mir"
+name := "ytb"
 normalizedName := s"${name.value}${network.value.packageSuffix}"
 
 git.useGitDescribe := true
@@ -47,7 +47,7 @@ logBuffered := false
 inThisBuild(
   Seq(
     scalaVersion := "2.12.7",
-    organization := "one.mir",
+    organization := "one.ytb",
     crossPaths := false,
     scalacOptions ++= Seq("-feature", "-deprecation", "-language:higherKinds", "-language:implicitConversions", "-Ywarn-unused:-implicits", "-Xlint")
   ))
@@ -96,7 +96,7 @@ val aopMerge: MergeStrategy = new MergeStrategy {
 inTask(assembly)(
   Seq(
     test := {},
-    assemblyJarName := s"mir-node-${version.value}.jar",
+    assemblyJarName := s"ytb-node-${version.value}.jar",
     assemblyMergeStrategy := {
       case PathList("META-INF", "io.netty.versions.properties") => MergeStrategy.concat
       case PathList("META-INF", "aop.xml")                      => aopMerge
@@ -106,7 +106,7 @@ inTask(assembly)(
 
 inConfig(Compile)(
   Seq(
-    mainClass := Some("one.mir.Application"),
+    mainClass := Some("one.ytb.Application"),
     publishArtifact in packageDoc := false,
     publishArtifact in packageSrc := false,
     sourceGenerators += versionSource
@@ -122,19 +122,19 @@ inConfig(Test)(
 
 inConfig(Linux)(
   Seq(
-    maintainer := "mir.one",
-    packageSummary := "Mir node",
-    packageDescription := "Mir node"
+    maintainer := "ytb.one",
+    packageSummary := "Ytb node",
+    packageDescription := "Ytb node"
   ))
 
-bashScriptExtraDefines += s"""addJava "-Dmir.directory=/var/lib/${normalizedName.value}""""
+bashScriptExtraDefines += s"""addJava "-Dytb.directory=/var/lib/${normalizedName.value}""""
 
 val linuxScriptPattern = "bin/(.+)".r
 val batScriptPattern   = "bin/([^.]+)\\.bat".r
 
 inConfig(Universal)(
   Seq(
-    mappings += (baseDirectory.value / s"mir-${network.value}.conf" -> "doc/mir.conf.sample"),
+    mappings += (baseDirectory.value / s"ytb-${network.value}.conf" -> "doc/ytb.conf.sample"),
     mappings := {
       val scriptSuffix = network.value.packageSuffix
       mappings.value.map {
@@ -264,13 +264,13 @@ lazy val lang =
       name := "RIDE Compiler",
       normalizedName := "lang",
       description := "The RIDE smart contract language compiler",
-      homepage := Some(url("https://docs.mir.one/en/technical-details/mir-contracts-language-description/maven-compiler-package.html")),
-      licenses := Seq(("MIT", url("https://github.com/mir-one/node/blob/master/LICENSE"))),
-      organization := "one.mir",
-      organizationName := "Mir One",
-      organizationHomepage := Some(url("https://mir.one")),
-      scmInfo := Some(ScmInfo(url("https://github.com/mir-one/node"), "git@github.com:mir-one/node.git", None)),
-      developers := List(Developer("petermz", "Peter Zhelezniakov", "peterz@rambler.ru", url("https://mir.one"))),
+      homepage := Some(url("https://docs.ytb.one/en/technical-details/ytb-contracts-language-description/maven-compiler-package.html")),
+      licenses := Seq(("MIT", url("https://github.com/raasakh/ytbnode/blob/master/LICENSE"))),
+      organization := "one.ytb",
+      organizationName := "Ytb One",
+      organizationHomepage := Some(url("https://ytb.one")),
+      scmInfo := Some(ScmInfo(url("https://github.com/raasakh/ytbnode"), "git@github.com:raasakh/ytbnode.git", None)),
+      developers := List(Developer("raasakh", "Alexandr Ryzhikh", "raasakh@gmail.com", url("https://ytb.one"))),
       libraryDependencies ++= Seq(
         "org.scala-js"                      %% "scalajs-stubs" % "1.0.0-RC1" % "provided",
         "com.github.spullara.mustache.java" % "compiler" % "0.9.5"
